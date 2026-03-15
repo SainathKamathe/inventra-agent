@@ -36,10 +36,16 @@ export default function BargainAgent() {
     const accepted = requested >= Math.max(minPrice, lowestAcceptable);
     const acceptedPrice = accepted ? requested : product.price;
 
-    setResult({
-      product: product.name, originalPrice: product.price, requestedPrice: requested, acceptedPrice,
-      accepted, reason: !accepted ? `₹${requested} is below minimum (₹${Math.ceil(Math.max(minPrice, lowestAcceptable))})` : isOverstock ? 'Accepted — overstock allows discount' : 'Accepted — within margin',
-    });
+   setResult({
+  product: product.name,
+  originalPrice: product.price,
+  requestedPrice: requested,
+  acceptedPrice,
+  accepted,
+  reason: accepted
+    ? (isOverstock ? 'Accepted — overstock allows discount' : 'Accepted — within margin')
+    : '',
+});
   };
 
   const successRate = Math.round(pastNegotiations.filter(n => n.accepted).length / pastNegotiations.length * 100);
